@@ -55,7 +55,7 @@ const ReverseMessageToggle: ChatBarButton = ({ isMainChat }) => {
 };
 
 export default definePlugin({
-    name: "Talk In Reverse",
+    name: "TalkInReverse",
     authors: [(Devs.Tolgchu ?? { name: "✨Tolgchu✨", id: 329671025312923648n })],
     description: "Reverses the message content before sending it.",
     dependencies: ["MessageEventsAPI", "ChatInputButtonAPI"],
