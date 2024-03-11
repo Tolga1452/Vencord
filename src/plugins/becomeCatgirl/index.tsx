@@ -76,7 +76,7 @@ const CatgirlMessageToggle: ChatBarButton = ({ isMainChat }) => {
 };
 
 export default definePlugin({
-    name: "Become Catgirl",
+    name: "BecomeCatgirl",
     authors: [(Devs.Tolgchu ?? { name: "✨Tolgchu✨", id: 329671025312923648n })],
     description: "Turns your messages into catgirl messages.",
     dependencies: ["MessageEventsAPI", "ChatInputButtonAPI"],
