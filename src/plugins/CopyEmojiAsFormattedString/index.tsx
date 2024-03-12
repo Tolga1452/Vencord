@@ -17,12 +17,9 @@
 */
 
 import { addContextMenuPatch, removeContextMenuPatch } from "@api/ContextMenu";
-import { Menu, React, Toasts, Clipboard } from "@webpack/common";
 import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
-import { showToast } from "@webpack/common";
-
-
+import { Clipboard, Menu, React, showToast,Toasts } from "@webpack/common";
 
 interface Emoji {
     type: "emoji",
@@ -36,16 +33,16 @@ export default definePlugin({
     authors: [Devs.HAPPY_ENDERMAN],
     expressionPickerPatch(children, props) {
         if (!props.alreadyPatched) {
-            let data = props.target.dataset as Emoji;
+            const data = props.target.dataset as Emoji;
             const firstChild = props.target.firstChild as HTMLImageElement;
 
-            let isAnimated = firstChild && new URL(firstChild.src).pathname.endsWith(".gif");;
+            const isAnimated = firstChild && new URL(firstChild.src).pathname.endsWith(".gif");
             if (data.type === "emoji" && data.id) {
 
                 children.push(<Menu.MenuItem
                     id="copy-formatted-string"
                     key="copy-formatted-string"
-                    label={`Copy as formatted string`}
+                    label={"Copy as formatted string"}
                     action={() => {
                         const formatted_emoji_string = `${isAnimated ? "<a:" : "<:"}${data.name}:${data.id}>`;
                         Clipboard.copy(formatted_emoji_string);

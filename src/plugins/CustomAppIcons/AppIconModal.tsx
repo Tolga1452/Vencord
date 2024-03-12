@@ -7,7 +7,8 @@
 import { localStorage } from "@utils/localStorage";
 import { ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalProps, ModalRoot, ModalSize } from "@utils/modal";
 import { findByProps } from "@webpack";
-import { Button, Forms, React, showToast, Text, TextInput, Toasts, useState, FluxDispatcher } from "@webpack/common";
+import { Button, FluxDispatcher,Forms, React, showToast, Text, TextInput, Toasts, useState } from "@webpack/common";
+import { FluxEvents } from "@webpack/types";
 
 
 interface AppIcon {
@@ -30,23 +31,23 @@ function AppIconModal(props: ModalProps) {
             "name": name
         } as AppIcon;
 
-         
+
         appIcons.push(icon);
         findByProps("ICONS", "ICONS_BY_ID").ICONS.push(icon);
         findByProps("ICONS", "ICONS_BY_ID").ICONS_BY_ID[icon.id] = icon;
         showToast("Added custom app icon!", Toasts.Type.SUCCESS);
         props.onClose();
-        let oldIcon = findByProps("getCurrentDesktopIcon").getCurrentDesktopIcon();
+        const oldIcon = findByProps("getCurrentDesktopIcon").getCurrentDesktopIcon();
 
         let random_icon = Object.keys(findByProps("ICONS_BY_ID")).filter(icon => icon !== oldIcon) as [];
         random_icon = random_icon[Math.floor(Math.random() * random_icon.length)];
 
         FluxDispatcher.dispatch({
-            type: "APP_ICON_UPDATED",
+            type: "APP_ICON_UPDATED" as FluxEvents,
             id: random_icon
         });
         FluxDispatcher.dispatch({
-            type: "APP_ICON_UPDATED",
+            type: "APP_ICON_UPDATED" as FluxEvents,
             id: oldIcon
         });
         localStorage.setItem("vc_app_icons", JSON.stringify(appIcons));
