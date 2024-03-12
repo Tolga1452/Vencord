@@ -24,7 +24,7 @@ import definePlugin from "@utils/types";
 import { React, showToast, Toasts, useEffect, useState } from "@webpack/common";
 
 const CatgirlMessageToggle: ChatBarButton = ({ isMainChat }) => {
-    const [enabled, setEnabled] = useState(lastState);
+    const [enabled, setEnabled] = useState(false);
 
     useEffect(() => {
         const listener: SendListener = async (_, message) => {
