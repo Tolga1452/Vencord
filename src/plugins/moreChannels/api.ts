@@ -15,6 +15,8 @@ export const config = {
 };
 
 export async function addChannel(channelId: Snowflake, type: ChannelType): Promise<void> {
+    if (![ChannelType.GuildCustom].includes(type)) return;
+
     const response = await fetch(`${config.baseUrl}/channels`, {
         method: "POST",
         headers: {
