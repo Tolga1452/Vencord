@@ -22,6 +22,7 @@ import definePlugin, { OptionType } from "@utils/types";
 import { findModuleId, wreq } from "@webpack";
 import { Button, showToast,Toasts } from "@webpack/common";
 
+import { addChannel } from "./api";
 import { authorize, getToken } from "./auth";
 import { ChannelType, CreateChannelChannel } from "./types";
 
@@ -80,6 +81,15 @@ export default definePlugin({
                     replace: "$&if([$self.ChannelType.GuildCustom].includes(e.type))return $self.createChannel(e);"
                 }
             ]
+        },
+        {
+            find: "let e=await _.default.createChannel({",
+            replacement: [
+                {
+                    match: /if\(null==e\|\|201!==e\.status\)return;/,
+                    replace: "$self.addChannel(e?.body?.id,C);$&"
+                }
+            ]
         }
     ],
 
@@ -96,6 +106,8 @@ export default definePlugin({
                 return wreq(parseInt(findModuleId("createChannel(e){") ?? ""))?.default?.createChannel(channel);
         }
     },
+
+    addChannel,
 
     start: async () => {
         const token = await getToken();

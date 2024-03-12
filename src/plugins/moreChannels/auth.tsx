@@ -10,6 +10,7 @@ import { openModal } from "@utils/modal";
 import { findByPropsLazy } from "@webpack";
 import { showToast, Toasts, UserStore } from "@webpack/common";
 
+import { config } from "./api";
 import { DataStoreData, Token } from "./types";
 
 const { OAuth2AuthorizeModal } = findByPropsLazy("OAuth2AuthorizeModal");
@@ -37,7 +38,7 @@ export function authorize() {
             {...props}
             scopes={["identify"]}
             responseType="code"
-            redirectUri="http://localhost:3004/more-channels/authorization"
+            redirectUri={`${config.baseUrl}/authorization`}
             permissions={0n}
             clientId="1216448161506398369"
             cancelCompletesFlow={false}
