@@ -164,19 +164,6 @@ const settings = definePluginSettings({
     }
 });
 
-const currentUserId = findByProps("getCurrentUser", "getUser").getCurrentUser().id;
-
-        findByProps("addInterceptor").addInterceptor((e: { type: string; message: { mentions: any[]; content: string; }; }) => {
-            if (e.type === "MESSAGE_CREATE") {
-                e.message.mentions.forEach(mention => {
-                    if (mention.id === currentUserId && settings.store.userList.search(e.message.author.id) !== -1) {
-                        e.message.mentions = [];
-                        e.message.content = "󠁰󠁩󠁮󠁧󠀠󠁢󠁬󠁯󠁣󠁫󠁥󠁤<:PingBlocked:1221214625899479081> " + e.message.content;
-                    }
-                });
-            }
-        });
-
 export default definePlugin({
     name: "PingControl",
     description: "Allows you to control and block incoming pings",
