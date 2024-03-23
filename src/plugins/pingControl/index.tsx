@@ -244,6 +244,8 @@ const currentUserId = findByProps("getCurrentUser", "getUser").getCurrentUser().
                         let guilds = findByProps("getGuilds").getGuilds()
                         let channel = findByProps("getChannel").getChannel(e.channelId)
                         let guild = null
+                        
+                        console.log(guilds)
 
                         guilds.forEach(g => {
                             console.log(g)
