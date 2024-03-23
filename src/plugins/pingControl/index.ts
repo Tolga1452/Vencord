@@ -134,7 +134,7 @@ function ToolboxFragmentWrapper({ children }: { children: ReactNode[]; }) {
 export default definePlugin({
     name: "test",
     description: "test",
-    authors: [Devs, Devs.HumanCat222],
+    authors: [Devs.HumanCat222],
 
     patches: [
         {
