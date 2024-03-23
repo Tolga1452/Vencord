@@ -247,18 +247,22 @@ const currentUserId = findByProps("getCurrentUser", "getUser").getCurrentUser().
 
                         if (channel.name === "") {channel = null}
 
-                        console.log(guilds)
-console.log(channel)
-console.log(e)
-
                         guilds.forEach(g => {
                             if (g.id === e.guildId) {
                                 guild = g
                             }
                         })
 
+                        console.log({
+                            author: e.message.author.global_name || e.message.author.username || "???",
+                            channel: channel?.name,
+                            channelId: channel?.id,
+                            message: e.message.id,
+                            guild: guild?.name
+                        })
+
                         inbox.push({
-                            author: e.message.author.globalName || e.message.author.username || "???",
+                            author: e.message.author.global_name || e.message.author.username || "???",
                             channel: channel?.name,
                             channelId: channel?.id,
                             message: e.message.id,
