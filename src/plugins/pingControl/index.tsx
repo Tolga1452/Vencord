@@ -126,7 +126,6 @@ interface UserContextProps {
 }
 
 function t(id) {  
-    console.log(settings.store.userList.search(id))
     if (settings.store.userList.search(id) !== -1) {
         settings.store.userList = settings.store.userList.replace(`${id}`, "")
     } else {
@@ -135,7 +134,7 @@ function t(id) {
 }
 
 function a(id) {
-    if (settings.store.userList.search(id)) {
+    if (settings.store.userList.search(id) === -1) {
         return false
     } else {
         return true
