@@ -90,6 +90,7 @@ function VencordPopoutButton() {
                     tooltip={isShown ? null : "Blocked Ping Inbox"}
                     icon={() => VencordPopoutIcon(isShown)}
                     selected={isShown}
+                    showBadge=true
                 />
             )}
         </Popout>
