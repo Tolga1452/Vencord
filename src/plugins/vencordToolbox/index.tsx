@@ -32,32 +32,6 @@ const HeaderBarIcon = findExportedComponentLazy("Icon", "Divider");
 function VencordPopout(onClose: () => void) {
     const { useQuickCss } = useSettings(["useQuickCss"]);
 
-    const pluginEntries = [] as ReactNode[];
-
-    for (const plugin of Object.values(Vencord.Plugins.plugins)) {
-        if (plugin.toolboxActions && Vencord.Plugins.isPluginEnabled(plugin.name)) {
-            pluginEntries.push(
-                <Menu.MenuGroup
-                    label={plugin.name}
-                    key={`vc-toolbox-${plugin.name}`}
-                >
-                    {Object.entries(plugin.toolboxActions).map(([text, action]) => {
-                        const key = `vc-toolbox-${plugin.name}-${text}`;
-
-                        return (
-                            <Menu.MenuItem
-                                id={key}
-                                key={key}
-                                label={text}
-                                action={action}
-                            />
-                        );
-                    })}
-                </Menu.MenuGroup>
-            );
-        }
-    }
-
     return (
         <Menu.Menu
             navId="vc-toolbox"
@@ -81,7 +55,6 @@ function VencordPopout(onClose: () => void) {
                 label="Open QuickCSS"
                 action={() => VencordNative.quickCss.openEditor()}
             />
-            {...pluginEntries}
         </Menu.Menu>
     );
 }
