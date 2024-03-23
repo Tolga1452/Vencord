@@ -30,11 +30,85 @@ import type { ReactNode } from "react";
 
 const HeaderBarIcon = findExportedComponentLazy("Icon", "Divider");
 
+function VencordPopout(onClose: () => void) {
+    const { useQuickCss } = useSettings(["useQuickCss"]);
+
+    const pluginEntries = [] as ReactNode[];
+
+    for (const plugin of Object.values(Vencord.Plugins.plugins)) {
+        if (plugin.toolboxActions && Vencord.Plugins.isPluginEnabled(plugin.name)) {
+            pluginEntries.push(
+                <Menu.MenuGroup
+                    label={plugin.name}
+                    key={`vc-toolbox-${plugin.name}`}
+                >
+                    {Object.entries(plugin.toolboxActions).map(([text, action]) => {
+                        const key = `vc-toolbox-${plugin.name}-${text}`;
+
+                        return (
+                            <Menu.MenuItem
+                                id={key}
+                                key={key}
+                                label={text}
+                                action={action}
+                            />
+                        );
+                    })}
+                </Menu.MenuGroup>
+            );
+        }
+    }
+
+    return (
+        <Menu.Menu
+            navId="vc-toolbox"
+            onClose={onClose}
+        >
+            <Menu.MenuItem
+                id="vc-toolbox-notifications"
+                label="Open Notification Log"
+                action={openNotificationLogModal}
+            />
+            <Menu.MenuCheckboxItem
+                id="vc-toolbox-quickcss-toggle"
+                checked={useQuickCss}
+                label={"Enable QuickCSS"}
+                action={() => {
+                    Settings.useQuickCss = !useQuickCss;
+                }}
+            />
+            <Menu.MenuItem
+                id="vc-toolbox-quickcss"
+                label="Open QuickCSS"
+                action={() => VencordNative.quickCss.openEditor()}
+            />
+            {...pluginEntries}
+        </Menu.Menu>
+    );
+}
+
 function VencordPopoutIcon(isShown: boolean) {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 27" width={24} height={24}>
-            <path fill="currentColor" d={isShown ? "M9 0h1v1h1v2h1v2h3V3h1V1h1V0h1v2h1v2h1v7h-1v-1h-3V9h1V6h-1v4h-3v1h1v-1h2v1h3v1h-1v1h-3v2h1v1h1v1h1v3h-1v4h-2v-1h-1v-4h-1v4h-1v1h-2v-4H9v-3h1v-1h1v-1h1v-2H9v-1H8v-1h3V6h-1v3h1v1H8v1H7V4h1V2h1M5 19h2v1h1v1h1v3H4v-1h2v-1H4v-2h1m15-1h2v1h1v2h-2v1h2v1h-5v-3h1v-1h1m4 3h4v1h-4" : "M0 0h7v1H6v1H5v1H4v1H3v1H2v1h5v1H0V6h1V5h1V4h1V3h1V2h1V1H0m13 2h5v1h-1v1h-1v1h-1v1h3v1h-5V7h1V6h1V5h1V4h-3m8 5h1v5h1v-1h1v1h-1v1h1v-1h1v1h-1v3h-1v1h-2v1h-1v1h1v-1h2v-1h1v2h-1v1h-2v1h-1v-1h-1v1h-6v-1h-1v-1h-1v-2h1v1h2v1h3v1h1v-1h-1v-1h-3v-1h-4v-4h1v-2h1v-1h1v-1h1v2h1v1h1v-1h1v1h-1v1h2v-2h1v-2h1v-1h1M8 14h2v1H9v4h1v2h1v1h1v1h1v1h4v1h-6v-1H5v-1H4v-5h1v-1h1v-2h2m17 3h1v3h-1v1h-1v1h-1v2h-2v-2h2v-1h1v-1h1m1 0h1v3h-1v1h-2v-1h1v-1h1"} />
-        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon__4cb88" width="24" height="24" viewBox="0 0 24 24" fill="none">
+<g clip-path="url(#clip0_3_376)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M7 0C6.20435 0 5.44129 0.316071 4.87868 0.87868C4.31607 1.44129 4 2.20435 4 3V17C4 17.7956 4.31607 18.5587 4.87868 19.1213C5.44129 19.6839 6.20435 20 7 20H21C21.7956 20 22.5587 19.6839 23.1213 19.1213C23.6839 18.5587 24 17.7956 24 17V3C24 2.20435 23.6839 1.44129 23.1213 0.87868C22.5587 0.316071 21.7956 0 21 0H7ZM6 3.5C6 2.67 6.67 2 7.5 2H20.5C21.33 2 22 2.67 22 3.5V9.5C22 10.33 21.33 11 20.5 11H17.85C17.35 11 17 11.5 17 12C17 12.7956 16.6839 13.5587 16.1213 14.1213C15.5587 14.6839 14.7956 15 14 15C13.2044 15 12.4413 14.6839 11.8787 14.1213C11.3161 13.5587 11 12.7956 11 12C11 11.5 10.65 11 10.15 11H7.5C7.10218 11 6.72064 10.842 6.43934 10.5607C6.15804 10.2794 6 9.89782 6 9.5V3.5Z" fill="currentColor"></path>
+<path d="M1 17C1 21.8 5 23 7 23" stroke="currentColor" stroke-width="2"></path>
+<path d="M1 4V17" stroke="currentColor" stroke-width="2"></path>
+<path d="M7 23L20 23" stroke="currentColor" stroke-width="2"></path>
+<circle cx="1" cy="4" r="1" fill="currentColor"></circle>
+<g clip-path="url(#clip1_3_376)">
+<circle cx="20" cy="23" r="1" transform="rotate(90 20 23)" fill="currentColor"></circle>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_3_376">
+<rect width="24" height="24" fill="white"></rect>
+</clipPath>
+<clipPath id="clip1_3_376">
+<rect width="2" height="1" fill="white" transform="matrix(0 1 -1 0 21 22)"></rect>
+</clipPath>
+</defs>
+</svg>
     );
 }
 
@@ -54,7 +128,7 @@ function VencordPopoutButton() {
                 <HeaderBarIcon
                     className="vc-toolbox-btn"
                     onClick={() => setShow(v => !v)}
-                    tooltip={isShown ? null : "Vencord Toolbox"}
+                    tooltip={isShown ? null : "Blocked Ping Inbox"}
                     icon={() => VencordPopoutIcon(isShown)}
                     selected={isShown}
                 />
@@ -63,20 +137,9 @@ function VencordPopoutButton() {
     );
 }
 
-function ToolboxFragmentWrapper({ children }: { children: ReactNode[]; }) {
-    children.splice(
-        children.length - 1, 0,
-        <ErrorBoundary noop={true}>
-            <VencordPopoutButton />
-        </ErrorBoundary>
-    );
-
-    return <>{children}</>;
-}
-
 export default definePlugin({
-    name: "test",
-    description: "test",
+    name: "PingControl",
+    description: "Control who can send you pings",
     authors: [Devs.HumanCat222],
 
     patches: [
