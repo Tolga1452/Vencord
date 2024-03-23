@@ -125,6 +125,15 @@ const UserContextMenuPatch: NavContextMenuPatchCallback = (children, { user, gui
     );
 };
 
+const settings = definePluginSettings({
+    userList: {
+        description:
+            "List of blocked ping users (separated by commas or spaces)",
+        type: OptionType.STRING,
+        default: "",
+    },
+});
+
 export default definePlugin({
     name: "PingControl",
     description: "Allows you to control and block incoming pings",
