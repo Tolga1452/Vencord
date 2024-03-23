@@ -144,7 +144,7 @@ export default definePlugin({
 
     contextMenus: {
         "dev-context"(children, { id }: { id: string; }) {
-            console.log(id)
+            console.log(children, id)
         }
 
     ToolboxFragmentWrapper: ErrorBoundary.wrap(ToolboxFragmentWrapper, {
