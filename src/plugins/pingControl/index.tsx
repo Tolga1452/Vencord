@@ -253,20 +253,12 @@ const currentUserId = findByProps("getCurrentUser", "getUser").getCurrentUser().
                             }
                         })
 
-                        console.log({
-                            author: e.message.author.global_name || e.message.author.username || "???",
-                            channel: channel?.name,
-                            channelId: channel?.id,
-                            message: e.message.id,
-                            guild: guild?.name
-                        })
-
                         inbox.push({
                             author: e.message.author.global_name || e.message.author.username || "???",
-                            channel: channel?.name,
-                            channelId: channel?.id,
+                            channel: channel && channel.name,
+                            channelId: channel && channel.id,
                             message: e.message.id,
-                            guild: guild?.name
+                            guild: guild && guild.name
                         })
                     }
                 });
