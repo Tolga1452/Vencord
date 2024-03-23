@@ -113,9 +113,7 @@ interface UserContextProps {
     user: User;
 }
 
-function t(id) {   
-
-    console.log(id)
+function t(id) {  
     if (settings.store.userList.search(id)) {
         settings.store.userList = settings.store.userList.replace(`${id},`, "")
     } else {
