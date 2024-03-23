@@ -37,6 +37,10 @@ function lol() {
     window.open("https://dis.gd/notifications-technical-details", "_blank");
 }
 
+function clear() {
+    inbox = []
+}
+
 function jumpTo(e) {
     findByProps("jumpToMessage").jumpToMessage({
     channelId: e.channelId,
@@ -62,7 +66,7 @@ function VencordPopout(onClose: () => void) {
         } else {
 entries.push(
             <Menu.MenuItem
-                id="vc-inbox-item"
+                id={`vc-inbox-item-${Math.random()}`}
                 label={`${item.author}`}
                 action={() => jumpTo(item)}
             />
@@ -82,7 +86,7 @@ entries.push(
             <Menu.MenuItem
                 id="vc-inbox-item-clear"
                 label="Clear inbox"
-                action={() => function() { inbox = [] }}
+                action={clear}
                 icon={DeleteIcon}
             />
         )
