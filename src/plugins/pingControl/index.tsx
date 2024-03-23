@@ -106,6 +106,19 @@ function ToolboxFragmentWrapper({ children }: { children: ReactNode[]; }) {
     return <>{children}</>;
 }
 
+const UserContextMenuPatch: NavContextMenuPatchCallback = (children, { user, guildId }: UserContextProps) => {
+    if (!user) return;
+
+    children.push(
+        <Menu.MenuItem
+            id="vc-block-pings"
+            label="Block Pings"
+            action={() => Clipboard.copy(user.getAvatarURL(guildId, { size: 1024 }, true))}
+            icon={LinkIcon}
+        />
+    );
+};
+
 export default definePlugin({
     name: "PingControl",
     description: "Allows you to control and block incoming pings",
@@ -122,9 +135,7 @@ export default definePlugin({
     ],
 
     contextMenus: {
-        "dev-context"(children, { id }: { id: string; }) {
-            console.log(children, id)
-        }
+        "user-context": UserContextMenuPatch
     },
 
     ToolboxFragmentWrapper: ErrorBoundary.wrap(ToolboxFragmentWrapper, {
