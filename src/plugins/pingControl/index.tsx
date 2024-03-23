@@ -31,12 +31,41 @@ import { addContextMenuPatch, removeContextMenuPatch } from "@api/ContextMenu";
 
 const HeaderBarIcon = findExportedComponentLazy("Icon", "Divider");
 
+let inbox = []
+
 function lol() {
     window.open("https://dis.gd/notifications-technical-details", "_blank");
 }
 
+function jumpTo(e) {
+    findByProps("jumpToMessage").jumpToMessage({
+    channelId: e.channelId,
+    messageId: e.message,
+    flash: !0
+})
+}
+
 function VencordPopout(onClose: () => void) {
     let entries = [] as ReactNode[];
+
+    inbox.forEach(item => {
+        if (item.guild) {
+            entries.push(
+            <Menu.MenuItem
+                id="vc-inbox-item"
+                label={`${item.guild} - ${item.channel} - ${item.author}`}
+                action={() => jumpTo(item)}
+            />
+        )
+        } else {
+entries.push(
+            <Menu.MenuItem
+                id="vc-inbox-item"
+                label={`${item.author}`}
+                action={() => jumpTo(item)}
+            />
+        )}
+    })
     
     if (entries.length === 0) {
         entries.push(
@@ -211,6 +240,26 @@ const currentUserId = findByProps("getCurrentUser", "getUser").getCurrentUser().
                     if (mention.id === currentUserId && settings.store.userList.search(e.message.author.id) !== -1) {
                         e.message.mentions = [];
                         e.message.content = "󠁰󠁩󠁮󠁧󠀠󠁢󠁬󠁯󠁣󠁫󠁥󠁤<:PingBlocked:1221214625899479081> " + e.message.content;
+
+                        let guilds = findByProps("getGuilds").getGuilds()
+                        let channel = findByProps("getChannel").getChannel(e.channelId)
+                        let guild = null
+
+                        if (channel.name === "") {channel = null}
+
+                        guilds.forEach(g => {
+                            if (g.id === e.guildId) {
+                                guild = g
+                            }
+                        })
+
+                        inbox.push({
+                            author: e.message.author.globalName || e.message.author.username || "???",
+                            channel: channel?.name,
+                            channelId: channel?.id,
+                            message: e.message.id,
+                            guild: guild?.name
+                        })
                     }
                 });
             }
