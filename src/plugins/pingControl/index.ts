@@ -34,7 +34,7 @@ function VencordPopout(onClose: () => void) {
     const { useQuickCss } = useSettings(["useQuickCss"]);
 
     return (
-        <Menu.Menu
+       <Menu.Menu
             navId="vc-toolbox"
             onClose={onClose}
         >
@@ -56,6 +56,7 @@ function VencordPopout(onClose: () => void) {
                 label="Open QuickCSS"
                 action={() => VencordNative.quickCss.openEditor()}
             />
+            {...pluginEntries}
         </Menu.Menu>
     );
 }
