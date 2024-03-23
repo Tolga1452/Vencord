@@ -83,7 +83,7 @@ entries.push(
                 id="vc-inbox-item-clear"
                 label="Clear inbox"
                 action={() => function() { inbox = [] }}
-                icon={LinkIcon}
+                icon={DeleteIcon}
             />
         )
     }
@@ -142,7 +142,7 @@ function VencordPopoutButton() {
                     tooltip={isShown ? null : "Blocked Ping Inbox"}
                     icon={() => VencordPopoutIcon(isShown)}
                     selected={isShown}
-                    showBadge={false}
+                    showBadge={inbox[0]&&true||false}
                 />
             )}
         </Popout>
