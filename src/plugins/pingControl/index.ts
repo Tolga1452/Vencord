@@ -30,63 +30,6 @@ import type { ReactNode } from "react";
 
 const HeaderBarIcon = findExportedComponentLazy("Icon", "Divider");
 
-function VencordPopout(onClose: () => void) {
-    const { useQuickCss } = useSettings(["useQuickCss"]);
-
-    const pluginEntries = [] as ReactNode[];
-
-    for (const plugin of Object.values(Vencord.Plugins.plugins)) {
-        if (plugin.toolboxActions && Vencord.Plugins.isPluginEnabled(plugin.name)) {
-            pluginEntries.push(
-                <Menu.MenuGroup
-                    label={plugin.name}
-                    key={`vc-toolbox-${plugin.name}`}
-                >
-                    {Object.entries(plugin.toolboxActions).map(([text, action]) => {
-                        const key = `vc-toolbox-${plugin.name}-${text}`;
-
-                        return (
-                            <Menu.MenuItem
-                                id={key}
-                                key={key}
-                                label={text}
-                                action={action}
-                            />
-                        );
-                    })}
-                </Menu.MenuGroup>
-            );
-        }
-    }
-
-    return (
-        <Menu.Menu
-            navId="vc-toolbox"
-            onClose={onClose}
-        >
-            <Menu.MenuItem
-                id="vc-toolbox-notifications"
-                label="Open Notification Log"
-                action={openNotificationLogModal}
-            />
-            <Menu.MenuCheckboxItem
-                id="vc-toolbox-quickcss-toggle"
-                checked={useQuickCss}
-                label={"Enable QuickCSS"}
-                action={() => {
-                    Settings.useQuickCss = !useQuickCss;
-                }}
-            />
-            <Menu.MenuItem
-                id="vc-toolbox-quickcss"
-                label="Open QuickCSS"
-                action={() => VencordNative.quickCss.openEditor()}
-            />
-            {...pluginEntries}
-        </Menu.Menu>
-    );
-}
-
 function VencordPopoutIcon(isShown: boolean) {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 27" width={24} height={24}>
