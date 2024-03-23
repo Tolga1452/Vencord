@@ -42,7 +42,7 @@ function VencordPopout(onClose: () => void) {
             <Menu.MenuItem
                 id="vc-inbox-item"
                 label="Empty :("
-                action={openNotificationLogModal}
+                action={lol}
             />
         )
     }
