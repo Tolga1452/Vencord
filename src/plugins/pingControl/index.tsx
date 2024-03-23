@@ -106,27 +106,6 @@ function ToolboxFragmentWrapper({ children }: { children: ReactNode[]; }) {
     return <>{children}</>;
 }
 
-function pickerPatch(children, props) {
-        if (!children.find(element => element.props.id === "copy-emoji-id")) {
-            const data = props.target.dataset as Emoji;
-            const firstChild = props.target.firstChild as HTMLImageElement;
-            const isAnimated = firstChild && new URL(firstChild.src).pathname.endsWith(".gif");
-            if (data.type === "emoji" && data.id) {
-                children.push((
-                    <Menu.MenuItem
-                        id="copy-emoji-id"
-                        key="copy-emoji-id"
-                        label={settings.store.formattedString ? "Copy as formatted string" : "Copy Emoji ID"}
-                        action={() => {
-                            const formatted_emoji_string = settings.store.formattedString ? `${isAnimated ? "<a:" : "<:"}${data.name}:${data.id}>` : `${data.id}`;
-                            Clipboard.copy(formatted_emoji_string);
-                        }}
-                    />
-                ));
-            }
-        }
-    },
-
 export default definePlugin({
     name: "PingControl",
     description: "Allows you to control and block incoming pings",
