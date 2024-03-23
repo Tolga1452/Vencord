@@ -1,4 +1,3 @@
-
 /*
  * Vencord, a modification for Discord's desktop app
  * Copyright (c) 2023 Vendicated and contributors
@@ -31,10 +30,36 @@ import type { ReactNode } from "react";
 const HeaderBarIcon = findExportedComponentLazy("Icon", "Divider");
 
 function VencordPopout(onClose: () => void) {
-    const { useQuickCss } = useSettings(["useQuickCss"]);
+   const { useQuickCss } = useSettings(["useQuickCss"]);
+
+    const pluginEntries = [] as ReactNode[];
+
+    for (const plugin of Object.values(Vencord.Plugins.plugins)) {
+        if (plugin.toolboxActions && Vencord.Plugins.isPluginEnabled(plugin.name)) {
+            pluginEntries.push(
+                <Menu.MenuGroup
+                    label={plugin.name}
+                    key={`vc-toolbox-${plugin.name}`}
+                >
+                    {Object.entries(plugin.toolboxActions).map(([text, action]) => {
+                        const key = `vc-toolbox-${plugin.name}-${text}`;
+
+                        return (
+                            <Menu.MenuItem
+                                id={key}
+                                key={key}
+                                label={text}
+                                action={action}
+                            />
+                        );
+                    })}
+                </Menu.MenuGroup>
+            );
+        }
+    }
 
     return (
-       <Menu.Menu
+        <Menu.Menu
             navId="vc-toolbox"
             onClose={onClose}
         >
