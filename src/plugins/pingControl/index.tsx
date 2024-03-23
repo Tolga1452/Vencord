@@ -131,7 +131,7 @@ function t(id) {
 
         findByProps("showToast").showToast(
             findByProps("createToast").createToast(`Pings from ${id.globalName || id.username} are no longer blocked`, 1, {
-                duration: 6000
+                duration: 4000
               })
         )
     } else {
@@ -139,7 +139,7 @@ function t(id) {
 
         findByProps("showToast").showToast(
             findByProps("createToast").createToast(`Pings from ${id.globalName || id.username} are now blocked`, 1, {
-                duration: 6000
+                duration: 4000
               })
         )
     }
