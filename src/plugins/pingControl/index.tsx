@@ -126,12 +126,22 @@ interface UserContextProps {
 }
 
 function t(id) {  
-    console.log(id)
-    
     if (settings.store.userList.search(id.id) !== -1) {
         settings.store.userList = settings.store.userList.replace(`${id.id}`, "")
+
+        findByProps("showToast").showToast(
+            findByProps("createToast").createToast(`Pings from ${id.globalName || id.username} are no longer blocked`, 1, {
+                duration: 6000
+              })
+        )
     } else {
         settings.store.userList = `${settings.store.userList},${id.id}`
+
+        findByProps("showToast").showToast(
+            findByProps("createToast").createToast(`Pings from ${id.globalName || id.username} are now blocked`, 1, {
+                duration: 6000
+              })
+        )
     }
 }
 
