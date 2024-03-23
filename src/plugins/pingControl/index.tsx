@@ -106,6 +106,12 @@ function ToolboxFragmentWrapper({ children }: { children: ReactNode[]; }) {
     return <>{children}</>;
 }
 
+interface UserContextProps {
+    channel: Channel;
+    guildId?: string;
+    user: User;
+}
+
 const UserContextMenuPatch: NavContextMenuPatchCallback = (children, { user, guildId }: UserContextProps) => {
     if (!user) return;
 
@@ -114,7 +120,6 @@ const UserContextMenuPatch: NavContextMenuPatchCallback = (children, { user, gui
             id="vc-block-pings"
             label="Block Pings"
             action={() => Clipboard.copy(user.getAvatarURL(guildId, { size: 1024 }, true))}
-            icon={LinkIcon}
         />
     );
 };
