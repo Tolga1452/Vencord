@@ -126,10 +126,12 @@ interface UserContextProps {
 }
 
 function t(id) {  
-    if (settings.store.userList.search(id) !== -1) {
-        settings.store.userList = settings.store.userList.replace(`${id}`, "")
+    console.log(id)
+    
+    if (settings.store.userList.search(id.id) !== -1) {
+        settings.store.userList = settings.store.userList.replace(`${id.id}`, "")
     } else {
-        settings.store.userList = `${settings.store.userList},${id}`
+        settings.store.userList = `${settings.store.userList},${id.id}`
     }
 }
 
@@ -150,7 +152,7 @@ const UserContextMenuPatch: NavContextMenuPatchCallback = (children, { user, gui
         <Menu.MenuItem
             id="vc-block-pings"
             label={isBlocked ? "Unblock Pings" : "Block Pings"}
-            action={() => t(user.id)}
+            action={() => t(user)}
         />
     );
 };
