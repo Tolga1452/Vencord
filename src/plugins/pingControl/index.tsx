@@ -146,7 +146,7 @@ function VencordPopoutButton() {
                     tooltip={isShown ? null : "Blocked Ping Inbox"}
                     icon={() => VencordPopoutIcon(isShown)}
                     selected={isShown}
-                    showBadge={inbox[0]&&true||false}
+                    showBadge={settings.store.showBadge&&inbox[0]&&true||false}
                 />
             )}
         </Popout>
@@ -218,12 +218,17 @@ const settings = definePluginSettings({
             "List of blocked ping users (separated by commas)",
         type: OptionType.STRING,
         default: ""
-    }
+    },
+    showBadge: {
+        type: OptionType.BOOLEAN,
+        description: "Show a badge when there is one message in the inbox",
+        default: true
+    },
 });
 
 export default definePlugin({
     name: "PingControl",
-    description: "Allows you to control and block incoming pings",
+    description: "Allows you to block incoming pings from certain users",
     authors: [Devs.HumanCat222],
     settings,
 
