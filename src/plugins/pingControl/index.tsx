@@ -21,7 +21,7 @@ import { openNotificationLogModal } from "@api/Notifications/notificationLog";
 import { Settings, useSettings, definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs } from "@utils/constants"; 
-import definePlugin from "@utils/types";
+import definePlugin, { OptionType } from "@utils/types";
 import { findExportedComponentLazy } from "@webpack";
 import { Menu, Popout, useState } from "@webpack/common";
 import type { ReactNode } from "react";
@@ -130,8 +130,8 @@ const settings = definePluginSettings({
         description:
             "List of blocked ping users (separated by commas or spaces)",
         type: OptionType.STRING,
-        default: "",
-    },
+        default: ""
+    }
 });
 
 export default definePlugin({
