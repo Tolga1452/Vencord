@@ -18,7 +18,7 @@
 */
 
 import { openNotificationLogModal } from "@api/Notifications/notificationLog";
-import { Settings, useSettings } from "@api/Settings";
+import { Settings, useSettings, definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs } from "@utils/constants"; 
 import definePlugin from "@utils/types";
@@ -138,6 +138,7 @@ export default definePlugin({
     name: "PingControl",
     description: "Allows you to control and block incoming pings",
     authors: [Devs.HumanCat222],
+    settings,
 
     patches: [
         {
