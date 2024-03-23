@@ -241,7 +241,7 @@ const currentUserId = findByProps("getCurrentUser", "getUser").getCurrentUser().
                         e.message.mentions = [];
                         e.message.content = "󠁰󠁩󠁮󠁧󠀠󠁢󠁬󠁯󠁣󠁫󠁥󠁤<:PingBlocked:1221214625899479081> " + e.message.content;
 
-                        let guilds = findByProps("getGuilds").getGuilds()
+                        let guilds = Object.values(findByProps("getGuilds").getGuilds())
                         let channel = findByProps("getChannel").getChannel(e.channelId)
                         let guild = null
                         
