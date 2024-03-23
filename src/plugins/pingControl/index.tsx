@@ -125,6 +125,7 @@ export default definePlugin({
         "dev-context"(children, { id }: { id: string; }) {
             console.log(children, id)
         }
+    }
 
     ToolboxFragmentWrapper: ErrorBoundary.wrap(ToolboxFragmentWrapper, {
         fallback: () => <p style={{ color: "red" }}>Failed to render :(</p>
