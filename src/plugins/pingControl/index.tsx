@@ -113,14 +113,32 @@ interface UserContextProps {
     user: User;
 }
 
+function t(id) {
+    if (settings.store.userList.search(id)) {
+        settings.store.userList = settings.store.userList.replace(`${id},`, "")
+    } else {
+        settings.store.userList = `${settings.store.userList},${id}`
+    }
+}
+
+function a(id) {
+    if (settings.store.userList.search(id)) {
+        return false
+    } else {
+        return true
+    }
+}
+
 const UserContextMenuPatch: NavContextMenuPatchCallback = (children, { user, guildId }: UserContextProps) => {
     if (!user) return;
+
+    const isBlocked = a(user.id)
 
     children.push(
         <Menu.MenuItem
             id="vc-block-pings"
-            label="Block Pings"
-            action={() => Clipboard.copy(user.getAvatarURL(guildId, { size: 1024 }, true))}
+            label={isBlocked ? "Unblock Pings" : "Block Pings"}
+            action={() => t(user.id)}
         />
     );
 };
@@ -128,7 +146,7 @@ const UserContextMenuPatch: NavContextMenuPatchCallback = (children, { user, gui
 const settings = definePluginSettings({
     userList: {
         description:
-            "List of blocked ping users (separated by commas or spaces)",
+            "List of blocked ping users (separated by commas)",
         type: OptionType.STRING,
         default: ""
     }
