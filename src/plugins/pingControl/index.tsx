@@ -24,7 +24,7 @@ import definePlugin, { OptionType } from "@utils/types";
 import { findExportedComponentLazy } from "@webpack";
 import { Menu, Popout, useState } from "@webpack/common";
 import type { ReactNode } from "react";
-import { Icon } from "@components/Icons";
+import { DeleteIcon } from "@components/Icons";
 import { findByProps } from "@webpack";
 
 import { addContextMenuPatch, removeContextMenuPatch } from "@api/ContextMenu";
@@ -43,6 +43,8 @@ function jumpTo(e) {
     messageId: e.message,
     flash: !0
 })
+
+    
 }
 
 function VencordPopout(onClose: () => void) {
@@ -52,7 +54,7 @@ function VencordPopout(onClose: () => void) {
         if (item.guild) {
             entries.push(
             <Menu.MenuItem
-                id="vc-inbox-item"
+                id={`vc-inbox-item-${Math.random()}`}
                 label={`${item.guild} - ${item.channel} - ${item.author}`}
                 action={() => jumpTo(item)}
             />
@@ -73,6 +75,15 @@ entries.push(
                 id="vc-inbox-item"
                 label="Empty :("
                 action={lol}
+            />
+        )
+    } else {
+entries.push(
+            <Menu.MenuItem
+                id="vc-inbox-item-clear"
+                label="Clear inbox"
+                action={() => function() { inbox = [] }}
+                icon={LinkIcon}
             />
         )
     }
