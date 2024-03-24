@@ -261,14 +261,11 @@ const currentUserId = findByProps("getCurrentUser", "getUser").getCurrentUser().
                         e.message.mentions = [];
                         e.message.content = "󠁰󠁩󠁮󠁧󠀠󠁢󠁬󠁯󠁣󠁫󠁥󠁤<:PingBlocked:1221214625899479081> " + e.message.content;
 
-                        console.log(e.channelId)
-
                         let guilds = Object.values(findByProps("getGuilds").getGuilds())
                         let channel = findByProps("getChannel").getChannel(e.channelId)
                         let guild = null
 
                         guilds.forEach(g => {
-                            console.log(g)
                             if (g.id === e.guildId) {
                                 guild = g
                             }
