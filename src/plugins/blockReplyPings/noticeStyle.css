@@ -1,0 +1,10 @@
+.ping-blocked [class*="contents"]> :is(div, h1, h2, p) {
+    color: #f0a747 !important;
+    padding: 7px;
+    background-color: #f0a74729 !important;
+    border-radius: 14px;
+    padding-left: 10px !important;
+    margin-left: 0;
+    max-width: fit-content;
+    padding-right: 10px !important;
+}
