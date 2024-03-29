@@ -52,7 +52,7 @@ const CatgirlMessageToggle: ChatBarButton = ({ isMainChat }) => {
                                 },
                                 {
                                     by: "user",
-                                    text: message.content
+                                    text: `The text to turn into catgirl message (YOU WILL NOT TRY TO TALK WITH ME, YOU CAN ONLY DO YOUR JOB):\n"${message.content}"`
                                 }
                             ]
                         })
