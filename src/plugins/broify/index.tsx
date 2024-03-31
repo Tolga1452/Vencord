@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-// CODE MADE BY KAMIKAZE
+
 import { addChatBarButton, ChatBarButton, removeChatBarButton } from "@api/ChatButtons";
 import { addPreSendListener, removePreSendListener, SendListener } from "@api/MessageEvents";
 import { Devs } from "@utils/constants";
@@ -25,7 +25,7 @@ import { React, showToast, Toasts, useEffect, useState } from "@webpack/common";
 
 let lastState = false;
 
-const coolMessageToggle: ChatBarButton = ({ isMainChat }) => {
+const CoolMessageToggle: ChatBarButton = ({ isMainChat }) => {
     const [enabled, setEnabled] = useState(lastState);
 
     function setEnabledValue(value: boolean) {
@@ -60,7 +60,7 @@ const coolMessageToggle: ChatBarButton = ({ isMainChat }) => {
 
                     if (response.ok) message.content = await response.text();
                 } catch (error) {
-                    new Logger("Become cool").error(error);
+                    new Logger("Become Cool").error(error);
 
                     showToast("Failed to turn the message into a cool message.", Toasts.Type.FAILURE);
                 }
@@ -75,20 +75,20 @@ const coolMessageToggle: ChatBarButton = ({ isMainChat }) => {
 
     return (
         <ChatBarButton
-            tooltip={enabled ? "Disable cool Message" : "Enable cool Message"}
+            tooltip={enabled ? "Disable Cool Message" : "Enable Cool Message"}
             onClick={() => setEnabledValue(!enabled)}
         >
-            <svg width="24px" height="24" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path fill={enabled ? "var(--green-360)" : "#B5BAC1"} d="M628.736 528.896A416 416 0 0 1 928 928H96a415.872 415.872 0 0 1 299.264-399.104L512 704l116.736-175.104zM720 304a208 208 0 1 1-416 0 208 208 0 0 1 416 0z"/></svg>
+            <svg width="24px" height="24" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path fill={enabled ? "var(--green-360)" : "currentColor"} d="M628.736 528.896A416 416 0 0 1 928 928H96a415.872 415.872 0 0 1 299.264-399.104L512 704l116.736-175.104zM720 304a208 208 0 1 1-416 0 208 208 0 0 1 416 0z"/></svg>
         </ChatBarButton>
     );
 };
 
 export default definePlugin({
-    name: "Become cool",
+    name: "Become Cool",
     authors: [(Devs.kamikaze ?? { name: "✨kamikaze✨", id: 1215790526910042212n })],
-    description: "Turns your messages into cool messages.",
+    description: "Turns your messages into a cool one.",
     dependencies: ["MessageEventsAPI", "ChatInputButtonAPI"],
 
-    start: () => addChatBarButton("coolMessageToggle", coolMessageToggle),
-    stop: () => removeChatBarButton("coolMessageToggle")
+    start: () => addChatBarButton("CoolMessageToggle", CoolMessageToggle),
+    stop: () => removeChatBarButton("CoolMessageToggle")
 });
