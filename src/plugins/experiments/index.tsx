@@ -39,10 +39,17 @@ const settings = definePluginSettings({
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true
+    },
+    apiV10: {
+        description: "Use v10 API. This might cause some issues.",
+        type: OptionType.BOOLEAN,
+        default: false,
+        restartNeeded: true
     }
 });
 
 let originalChannel;
+let originalAPI;
 
 export default definePlugin({
     name: "Experiments",
@@ -53,7 +60,8 @@ export default definePlugin({
         Devs.Nickyux,
         Devs.BanTheNons,
         Devs.Nuckyz,
-        (Devs.Tolgchu ?? { name: "✨Tolgchu✨", id: 329671025312923648n })
+        (Devs.Tolgchu ?? { name: "✨Tolgchu✨", id: 329671025312923648n }),
+        (Devs.TRAOX ?? { name: "TraoX", id: 935621080092123156n })
     ],
     settings,
 
@@ -97,12 +105,15 @@ export default definePlugin({
 
     start: () => {
         originalChannel = window.GLOBAL_ENV.RELEASE_CHANNEL;
-
+        originalAPI = window.GLOBAL_ENV.API_VERSION;  
+    
         if (settings.store.staging) window.GLOBAL_ENV.RELEASE_CHANNEL = "staging";
+        if (settings.store.apiV10) window.GLOBAL_ENV.API_VERSION = "10";
     },
 
     stop: () => {
         if (window.GLOBAL_ENV.RELEASE_CHANNEL !== originalChannel) window.GLOBAL_ENV.RELEASE_CHANNEL = originalChannel;
+        if (window.GLOBAL_ENV.API_VERSION !== originalAPI) window.GLOBAL_ENV.API_VERSION = originalAPI;
     },
 
     settingsAboutComponent: () => {
