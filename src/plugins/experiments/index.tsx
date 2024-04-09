@@ -41,7 +41,7 @@ const settings = definePluginSettings({
         restartNeeded: true
     },
     apiV10: {
-        description: "Use V10 API",
+        description: "Use v10 API. This might cause some issues.",
         type: OptionType.BOOLEAN,
         default: false,
         restartNeeded: true
