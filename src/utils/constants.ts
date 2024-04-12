@@ -454,10 +454,6 @@ export const Devs = /* #__PURE__*/ Object.freeze({
         name: "kamikaze",
         id: 1215790526910042212n
     },
-    D3SOX: {
-        name: "d3sox",
-        id: 201052085641281538n
-    },
     nakoyasha: {
         name: "nakoyasha",
         id: 222069018507345921n
